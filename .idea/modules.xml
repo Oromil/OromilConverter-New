@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OromilConverter.iml" filepath="$PROJECT_DIR$/OromilConverter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OromilConverter-New.iml" filepath="$PROJECT_DIR$/OromilConverter-New.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

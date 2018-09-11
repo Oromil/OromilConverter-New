@@ -1,5 +1,7 @@
 package com.kilograpp.oromilconverter.data.network;
 
+import com.kilograpp.oromilconverter.data.network.entities.Response;
+
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
@@ -10,9 +12,6 @@ import rx.Observable;
 
 public interface RequestCourses {
 
-    @GET("/latest?base=RUB")
-    Observable<Courses> requestCourses();
-
-    @GET("http://api.fixer.io/{date}??base=RUB")
-    Observable<Courses> requestLastCourses(@Path("date") String lastDate);
+    @GET("/daily_json.js")
+    Observable<Response> requestCourses();
 }

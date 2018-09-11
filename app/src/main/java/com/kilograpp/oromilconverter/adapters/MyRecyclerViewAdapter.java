@@ -1,19 +1,20 @@
 package com.kilograpp.oromilconverter.adapters;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.kilograpp.oromilconverter.view.custom.CustomEditText;
+import com.kilograpp.oromilconverter.view.custom.CustomTextWatcher;
 import com.kilograpp.oromilconverter.R;
-import com.kilograpp.oromilconverter.data.realm.Valute;
+import com.kilograpp.oromilconverter.data.network.entities.Valute;
 import com.kilograpp.oromilconverter.util.CalculateUtil;
 
 import java.util.ArrayList;
-
-import lombok.Getter;
+import java.util.List;
 
 /**
  * Created by Oromil on 13.06.2017.
@@ -21,58 +22,101 @@ import lombok.Getter;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
 
-    @Getter
     private ArrayList<Valute> mValutesList;
 
     private int mActiveItem;
 
-    public MyRecyclerViewAdapter(){
+    private CustomTextWatcher mWatcher = new CustomTextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s.toString().equals(".") || s.toString().equals(""))
+                changeItemsQuantity("0.");
+            else
+                changeItemsQuantity(s.toString());
+        }
+    };
+
+    public MyRecyclerViewAdapter() {
         mValutesList = new ArrayList<>();
-        mActiveItem = 0;
+        mActiveItem = -1;
     }
+
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_converter_list, parent, false);
-
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_converter_list, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.valuteName.setText(mValutesList.get(position).getName());
-        holder.valuteQuantity.setText(String.valueOf(mValutesList.get(position).getQuantity()));
-        holder.itemView.setOnClickListener(v -> mActiveItem = position);
+
+        holder.fillItemView(mValutesList.get(position).getName(),
+                String.valueOf(mValutesList.get(position).getQuantity()));
+
+        holder.itemView.setOnClickListener(v -> {
+            notifyItemChanged(mActiveItem);
+            mActiveItem = position;
+            holder.focusEditText();
+        });
     }
+
 
     @Override
     public int getItemCount() {
         return mValutesList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView valuteName;
-        TextView valuteQuantity;
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            valuteName = (TextView) itemView.findViewById(R.id.tvValuteName);
-            valuteQuantity = (TextView) itemView.findViewById(R.id.tvQuantity);
-        }
-    }
-
-    public void updateData(ArrayList<Valute>valutes){
+    public void updateData(List<Valute> valutes) {
         mValutesList.clear();
         mValutesList.addAll(valutes);
         notifyDataSetChanged();
     }
 
-    public void changeItemsQuantity(String quantity){
-        for (Valute valute:mValutesList) {
-            if (mValutesList.indexOf(valute)==mActiveItem)
+    private void changeItemsQuantity(String quantity) {
+        for (Valute valute : mValutesList) {
+            if (mValutesList.indexOf(valute) == mActiveItem)
                 valute.setQuantity(Float.valueOf(quantity));
-            else CalculateUtil.calculate(quantity, mValutesList.get(mActiveItem), valute);
+            else {
+                CalculateUtil.calculate(quantity, mValutesList.get(mActiveItem), valute);
+                notifyItemChanged(mValutesList.indexOf(valute));
+            }
         }
-        notifyDataSetChanged();
+    }
+
+
+    class MyViewHolder extends RecyclerView.ViewHolder {
+
+        TextView valuteName;
+        CustomEditText valuteQuantity;
+
+        MyViewHolder(View itemView) {
+            super(itemView);
+            valuteName = (TextView) itemView.findViewById(R.id.tvValuteName);
+            valuteQuantity = (CustomEditText) itemView.findViewById(R.id.tvQuantity);
+            valuteQuantity.addTextChangedListener(mWatcher);
+        }
+
+        void fillItemView(String name, String quantity) {
+            valuteName.setText(name);
+            valuteQuantity.setText(quantity);
+        }
+
+        void focusEditText() {
+            valuteQuantity.setText("");
+            valuteQuantity.requestFocus();
+        }
     }
 }

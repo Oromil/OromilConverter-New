@@ -1,7 +1,6 @@
 package com.kilograpp.oromilconverter.presenter;
 
-import com.kilograpp.oromilconverter.presenter.MvpView;
-import com.kilograpp.oromilconverter.presenter.Presenter;
+import com.kilograpp.oromilconverter.view.MvpView;
 
 /**
  * Created by Oromil on 19.07.2017.

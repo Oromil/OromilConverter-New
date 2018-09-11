@@ -25,6 +25,10 @@ public class OromilConverterApplication extends Application {
     @Getter
     static OromilConverterApplication instance;
 
+    public static RequestCourses getRequest() {
+        return request;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -37,7 +41,7 @@ public class OromilConverterApplication extends Application {
 
     private void createRetrofit(){
         Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.fixer.io")
+            .baseUrl("https://www.cbr-xml-daily.ru")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .build();
@@ -55,4 +59,6 @@ public class OromilConverterApplication extends Application {
         Realm.removeDefaultConfiguration();
         Realm.setDefaultConfiguration(configuration);
     }
+
+
 }

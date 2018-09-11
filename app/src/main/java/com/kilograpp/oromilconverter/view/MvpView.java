@@ -1,4 +1,4 @@
-package com.kilograpp.oromilconverter.presenter;
+package com.kilograpp.oromilconverter.view;
 
 /**
  * Created by Oromil on 19.07.2017.

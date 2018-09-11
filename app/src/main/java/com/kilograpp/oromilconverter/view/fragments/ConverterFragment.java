@@ -2,34 +2,30 @@ package com.kilograpp.oromilconverter.view.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.kilograpp.oromilconverter.R;
 import com.kilograpp.oromilconverter.adapters.MyRecyclerViewAdapter;
-import com.kilograpp.oromilconverter.data.realm.Valute;
-import com.kilograpp.oromilconverter.view.activity.MainActivity;
-import com.kilograpp.oromilconverter.view.fragments.BaseFragment;
+import com.kilograpp.oromilconverter.data.network.entities.Valute;
+import com.kilograpp.oromilconverter.presenter.ConverterFragmentPresenter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Oromil on 19.07.2017.
  */
 
-public class ConverterFragment extends Fragment {
+public class ConverterFragment extends Fragment implements ConverterMvpView{
 
     private MyRecyclerViewAdapter mAdapter;
-    private RecyclerView mRecyclerView;
+
+    private ConverterFragmentPresenter mPresenter;
 
 
     @Nullable
@@ -46,50 +42,26 @@ public class ConverterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.d("Test", "onViewCreated");
 
+        mPresenter = new ConverterFragmentPresenter();
+        mPresenter.attachView(this);
+
         mAdapter = new MyRecyclerViewAdapter();
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.rvConverterFragmentList);
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.rvConverterFragmentList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
 
-        CustomTextWatcher textWatcher = new CustomTextWatcher((EditText) view.findViewById(R.id.etQuantity));
-
-        ((MainActivity) getActivity()).getMPresenter().loadData();
+        mPresenter.loadData();
     }
 
-    public void updateList(ArrayList<Valute> valutes) {
+    @Override
+    public void updateList(List<Valute> valutes) {
         Log.d("Test", "updateList");
         mAdapter.updateData(valutes);
     }
 
-    private class CustomTextWatcher implements TextWatcher {
+    @Override
+    public void showProgress(boolean show) {
 
-        private EditText mInputQuantity;
-
-        public CustomTextWatcher(EditText inputQuantity){
-            this.mInputQuantity = inputQuantity;
-            this.mInputQuantity.addTextChangedListener(this);
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (s.toString().equals(".")){
-                mInputQuantity.setText("0.");
-                mInputQuantity.setSelection(count+1);
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            Log.d("text", s+"");
-            if (!s.toString().equals(""))
-                mAdapter.changeItemsQuantity(mInputQuantity.getText().toString());
-            else mAdapter.changeItemsQuantity("0");
-        }
     }
 }
