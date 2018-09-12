@@ -2,10 +2,12 @@ package com.kilograpp.oromilconverter.data.network.entities;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Response {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+
+public class Response extends RealmObject {
 
     @SerializedName("Date")
     public String date;
@@ -19,7 +21,7 @@ public class Response {
     @SerializedName("Valute")
     public AllValutes allValutes;
 
-    private ArrayList<Valute> valutes = new ArrayList<>();
+    private RealmList<Valute> valutes = new RealmList<>();
 
     public List<Valute> getValutes() {
         return valutes;

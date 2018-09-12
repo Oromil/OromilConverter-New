@@ -1,5 +1,6 @@
 package com.kilograpp.oromilconverter.adapters;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.view.LayoutInflater;
@@ -7,10 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.kilograpp.oromilconverter.data.network.entities.Valute;
 import com.kilograpp.oromilconverter.view.custom.CustomEditText;
 import com.kilograpp.oromilconverter.view.custom.CustomTextWatcher;
 import com.kilograpp.oromilconverter.R;
-import com.kilograpp.oromilconverter.data.network.entities.Valute;
+import com.kilograpp.oromilconverter.data.network.entities.AValute;
 import com.kilograpp.oromilconverter.util.CalculateUtil;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import java.util.List;
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
 
     private ArrayList<Valute> mValutesList;
+    private View.OnClickListener onClickListener;
 
     private int mActiveItem;
 
@@ -46,29 +49,34 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         }
     };
 
-    public MyRecyclerViewAdapter() {
+    public MyRecyclerViewAdapter(View.OnClickListener listener) {
+        onClickListener = listener;
         mValutesList = new ArrayList<>();
         mActiveItem = -1;
     }
 
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_converter_list, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.fillItemView(mValutesList.get(position).getName(),
                 String.valueOf(mValutesList.get(position).getQuantity()));
 
         holder.itemView.setOnClickListener(v -> {
-            notifyItemChanged(mActiveItem);
-            mActiveItem = position;
-            holder.focusEditText();
+            if (mActiveItem != position) {
+                notifyItemChanged(mActiveItem);
+                mActiveItem = position;
+                holder.focusEditText();
+            }
+            onClickListener.onClick(v);
         });
     }
 
@@ -104,8 +112,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         MyViewHolder(View itemView) {
             super(itemView);
-            valuteName = (TextView) itemView.findViewById(R.id.tvValuteName);
-            valuteQuantity = (CustomEditText) itemView.findViewById(R.id.tvQuantity);
+            valuteName = itemView.findViewById(R.id.tvValuteName);
+            valuteQuantity = itemView.findViewById(R.id.tvQuantity);
             valuteQuantity.addTextChangedListener(mWatcher);
         }
 

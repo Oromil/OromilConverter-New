@@ -13,6 +13,7 @@ public class BasePresenter<T extends MvpView> implements Presenter {
     @Override
     public void attachView(MvpView mvpView) {
         this.mMvpView = (T) mvpView;
+        onViewAttached();
     }
 
     @Override
@@ -20,14 +21,15 @@ public class BasePresenter<T extends MvpView> implements Presenter {
         this.mMvpView = null;
     }
 
-    public T getmMvpView(){
+    public void onViewAttached() {
+
+    }
+
+    public T getmMvpView() {
         return mMvpView;
     }
 
-    public boolean checkViewAttached(){
-        if (mMvpView == null)
-            return false;
-        else
-            return true;
+    public boolean checkViewAttached() {
+        return mMvpView != null;
     }
 }

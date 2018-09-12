@@ -1,15 +1,11 @@
 package com.kilograpp.oromilconverter;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.kilograpp.oromilconverter.data.network.RequestCourses;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.log.AndroidLogger;
-import io.realm.log.RealmLog;
-import lombok.Getter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,13 +16,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OromilConverterApplication extends Application {
 
-    @Getter
     static RequestCourses request;
-    @Getter
     static OromilConverterApplication instance;
 
     public static RequestCourses getRequest() {
         return request;
+    }
+
+    public static OromilConverterApplication getInstance(){
+        return instance;
     }
 
     @Override
@@ -50,7 +48,7 @@ public class OromilConverterApplication extends Application {
 
     private void createRealm(){
         Realm.init(getApplicationContext());
-        RealmLog.add(new AndroidLogger(Log.WARN));
+//        RealmLog.add(new AndroidLogger(Log.WARN));
         RealmConfiguration configuration = new RealmConfiguration.Builder()
                 .name("OromilConverterDb.realm")
                 .migration((realm, oldVersion, newVersion) -> realm.deleteAll())

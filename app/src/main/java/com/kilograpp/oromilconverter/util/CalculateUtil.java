@@ -1,5 +1,6 @@
 package com.kilograpp.oromilconverter.util;
 
+import com.kilograpp.oromilconverter.data.network.entities.AValute;
 import com.kilograpp.oromilconverter.data.network.entities.Valute;
 
 import java.math.RoundingMode;

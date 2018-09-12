@@ -2,73 +2,75 @@ package com.kilograpp.oromilconverter.data.network.entities;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AllValutes {
+import io.realm.RealmObject;
+
+public class AllValutes extends RealmObject{
     @SerializedName("AUD")
-    public ValuteImpl AUD;
+    public Valute AUD;
     @SerializedName("AZN")
-    public ValuteImpl AZN;
+    public Valute AZN;
     @SerializedName("GBP")
-    public ValuteImpl gbp;
+    public Valute gbp;
     @SerializedName("AMD")
-    public ValuteImpl amd;
+    public Valute amd;
     @SerializedName("BYN")
-    public ValuteImpl byn;
+    public Valute byn;
     @SerializedName("BGN")
-    public ValuteImpl bgn;
+    public Valute bgn;
     @SerializedName("BRL")
-    public ValuteImpl brl;
+    public Valute brl;
     @SerializedName("HUF")
-    public ValuteImpl huf;
+    public Valute huf;
     @SerializedName("HKD")
-    public ValuteImpl hkd;
+    public Valute hkd;
     @SerializedName("DKK")
-    public ValuteImpl dkk;
+    public Valute dkk;
     @SerializedName("USD")
-    public ValuteImpl usd;
+    public Valute usd;
     @SerializedName("EUR")
-    public ValuteImpl eur;
+    public Valute eur;
     @SerializedName("INR")
-    public ValuteImpl inr;
+    public Valute inr;
     @SerializedName("KZT")
-    public ValuteImpl kzt;
+    public Valute kzt;
     @SerializedName("CAD")
-    public ValuteImpl cad;
+    public Valute cad;
     @SerializedName("KGS")
-    public ValuteImpl kgs;
+    public Valute kgs;
     @SerializedName("CNY")
-    public ValuteImpl cny;
+    public Valute cny;
     @SerializedName("MDL")
-    public ValuteImpl mdl;
+    public Valute mdl;
     @SerializedName("NOK")
-    public ValuteImpl nok;
+    public Valute nok;
     @SerializedName("PLN")
-    public ValuteImpl pln;
+    public Valute pln;
     @SerializedName("RON")
-    public ValuteImpl ron;
+    public Valute ron;
     @SerializedName("XDR")
-    public ValuteImpl xdr;
+    public Valute xdr;
     @SerializedName("SGD")
-    public ValuteImpl sgd;
+    public Valute sgd;
     @SerializedName("TJS")
-    public ValuteImpl tjs;
+    public Valute tjs;
     @SerializedName("TRY")
-    public ValuteImpl ttry;
+    public Valute ttry;
     @SerializedName("TMT")
-    public ValuteImpl tmt;
+    public Valute tmt;
     @SerializedName("UZS")
-    public ValuteImpl uzs;
+    public Valute uzs;
     @SerializedName("UAH")
-    public ValuteImpl uah;
+    public Valute uah;
     @SerializedName("CZK")
-    public ValuteImpl czk;
+    public Valute czk;
     @SerializedName("SEK")
-    public ValuteImpl sek;
+    public Valute sek;
     @SerializedName("CHF")
-    public ValuteImpl chf;
+    public Valute chf;
     @SerializedName("ZAR")
-    public ValuteImpl zar;
+    public Valute zar;
     @SerializedName("KRW")
-    public ValuteImpl krw;
+    public Valute krw;
     @SerializedName("JPY")
-    public ValuteImpl jpy;
+    public Valute jpy;
 }
