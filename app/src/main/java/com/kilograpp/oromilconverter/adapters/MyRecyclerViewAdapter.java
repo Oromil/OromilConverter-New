@@ -12,7 +12,6 @@ import com.kilograpp.oromilconverter.data.network.entities.Valute;
 import com.kilograpp.oromilconverter.view.custom.CustomEditText;
 import com.kilograpp.oromilconverter.view.custom.CustomTextWatcher;
 import com.kilograpp.oromilconverter.R;
-import com.kilograpp.oromilconverter.data.network.entities.AValute;
 import com.kilograpp.oromilconverter.util.CalculateUtil;
 
 import java.util.ArrayList;
@@ -27,7 +26,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private ArrayList<Valute> mValutesList;
     private View.OnClickListener onClickListener;
 
-    private int mActiveItem;
+    // TODO: 12.09.2018 костыль
+    private View parent;
+
+    private int activeItem;
 
     private CustomTextWatcher mWatcher = new CustomTextWatcher() {
         @Override
@@ -52,13 +54,14 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public MyRecyclerViewAdapter(View.OnClickListener listener) {
         onClickListener = listener;
         mValutesList = new ArrayList<>();
-        mActiveItem = -1;
+        activeItem = -1;
     }
 
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        this.parent = parent;
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_converter_list, parent, false);
         return new MyViewHolder(view);
@@ -66,15 +69,15 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
+        holder.valuteQuantity.setFocusableInTouchMode(false);
         holder.fillItemView(mValutesList.get(position).getName(),
                 String.valueOf(mValutesList.get(position).getQuantity()));
 
         holder.itemView.setOnClickListener(v -> {
-            if (mActiveItem != position) {
-                notifyItemChanged(mActiveItem);
-                mActiveItem = position;
-                holder.focusEditText();
+            if (activeItem != position) {
+                notifyItemChanged(activeItem);
+                activeItem = position;
+                holder.valuteQuantity.requestFocus();
             }
             onClickListener.onClick(v);
         });
@@ -88,17 +91,20 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
 
     public void updateData(List<Valute> valutes) {
+        if (parent != null)
+            parent.requestFocus();
         mValutesList.clear();
         mValutesList.addAll(valutes);
+        activeItem = -1;
         notifyDataSetChanged();
     }
 
     private void changeItemsQuantity(String quantity) {
         for (Valute valute : mValutesList) {
-            if (mValutesList.indexOf(valute) == mActiveItem)
+            if (mValutesList.indexOf(valute) == activeItem)
                 valute.setQuantity(Float.valueOf(quantity));
             else {
-                CalculateUtil.calculate(quantity, mValutesList.get(mActiveItem), valute);
+                CalculateUtil.calculate(quantity, mValutesList.get(activeItem), valute);
                 notifyItemChanged(mValutesList.indexOf(valute));
             }
         }
@@ -120,11 +126,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         void fillItemView(String name, String quantity) {
             valuteName.setText(name);
             valuteQuantity.setText(quantity);
-        }
-
-        void focusEditText() {
-            valuteQuantity.setText("");
-            valuteQuantity.requestFocus();
         }
     }
 }

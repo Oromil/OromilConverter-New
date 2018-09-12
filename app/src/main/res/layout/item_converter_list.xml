@@ -31,7 +31,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 tools:text="12.9"
-                android:focusableInTouchMode="false"
                 android:longClickable="false"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
