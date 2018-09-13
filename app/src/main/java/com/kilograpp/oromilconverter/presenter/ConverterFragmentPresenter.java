@@ -14,27 +14,6 @@ public class ConverterFragmentPresenter extends BasePresenter<ConverterMvpView> 
 
     @Override
     public void onViewAttached() {
-        mMvpView.setRecyclerViewAdapter(new MyRecyclerViewAdapter(v -> mMvpView.showKeyboard(true, v)));
+        mMvpView.setRecyclerViewAdapter(new MyRecyclerViewAdapter(v -> mMvpView.showKeyboard(true)));
     }
-
-    //    public void loadData() {
-//
-//        mDataManager.testRequest(new Subscriber<List<Valute>>() {
-//            @Override
-//            public void onCompleted() {
-//                mMvpView.showKeyboard(false);
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                mMvpView.showKeyboard(false);
-//                e.printStackTrace();
-//            }
-//
-//            @Override
-//            public void onNext(List<Valute> valutes) {
-//                mMvpView.updateList(valutes);
-//            }
-//        });
-//    }
 }

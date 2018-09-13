@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.kilograpp.oromilconverter.R;
 import com.kilograpp.oromilconverter.data.network.entities.Valute;
+import com.kilograpp.oromilconverter.util.CalculateUtil;
 import com.kilograpp.oromilconverter.view.custom.CustomEditText;
 import com.kilograpp.oromilconverter.view.custom.CustomTextWatcher;
-import com.kilograpp.oromilconverter.R;
-import com.kilograpp.oromilconverter.util.CalculateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,14 +69,25 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.valuteQuantity.setFocusableInTouchMode(false);
-        holder.fillItemView(mValutesList.get(position).getName(),
-                String.valueOf(mValutesList.get(position).getQuantity()));
+        Valute valute = mValutesList.get(position);
+        holder.valuteName.setText(valute.getName());
+
+        if (activeItem == position) {
+            if (mValutesList.get(position).getQuantity() == 0f)
+                holder.valuteQuantity.getText().clear();
+            else
+                holder.valuteQuantity.setText(String.valueOf(valute.getQuantity()));
+
+            holder.valuteQuantity.requestFocus();
+        } else {
+            holder.valuteQuantity.setText(String.valueOf(valute.getQuantity()));
+        }
 
         holder.itemView.setOnClickListener(v -> {
             if (activeItem != position) {
                 notifyItemChanged(activeItem);
                 activeItem = position;
+                holder.valuteQuantity.getText().clear();
                 holder.valuteQuantity.requestFocus();
             }
             onClickListener.onClick(v);
@@ -121,11 +132,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             valuteName = itemView.findViewById(R.id.tvValuteName);
             valuteQuantity = itemView.findViewById(R.id.tvQuantity);
             valuteQuantity.addTextChangedListener(mWatcher);
-        }
-
-        void fillItemView(String name, String quantity) {
-            valuteName.setText(name);
-            valuteQuantity.setText(quantity);
         }
     }
 }

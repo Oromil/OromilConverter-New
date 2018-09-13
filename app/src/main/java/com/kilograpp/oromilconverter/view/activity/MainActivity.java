@@ -1,5 +1,6 @@
 package com.kilograpp.oromilconverter.view.activity;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -9,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kilograpp.oromilconverter.R;
@@ -21,6 +23,8 @@ import com.kilograpp.oromilconverter.view.fragments.StatisticFragment;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainMvpView {
+
+    private boolean KEYBOARD_SHOWING = false;
 
     private MainActivityPresenter presenter;
     private ConverterFragment converterFragment;
@@ -96,5 +100,19 @@ public class MainActivity extends AppCompatActivity implements MainMvpView {
                 .show();
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        KEYBOARD_SHOWING = false;
+        super.onBackPressed();
+    }
+
+    public void setKeyboardShowing(boolean show) {
+        InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if ((!(!show && !KEYBOARD_SHOWING)) && inputManager != null) {
+            inputManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            KEYBOARD_SHOWING = show;
+        }
     }
 }

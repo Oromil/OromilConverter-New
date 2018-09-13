@@ -31,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 tools:text="12.9"
-                android:longClickable="false"/>
+                android:enabled="false"
+                android:inputType="numberDecimal"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
