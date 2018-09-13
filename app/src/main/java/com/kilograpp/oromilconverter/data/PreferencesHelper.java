@@ -11,7 +11,7 @@ public class PreferencesHelper {
 
     private final String PREFERENCES_NAME = "com.kilograpp.oromilconverter";
 
-    private final String VALUTES_SET_KEY = "selected_valutes";
+    private final String CURRENCIES_SET_KEY = "selected_currencies";
 
     private final SharedPreferences preferences;
 
@@ -19,11 +19,11 @@ public class PreferencesHelper {
         preferences = OromilConverterApplication.getInstance().getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
-    public void saveSelectedValutes(Set<String> data) {
-        preferences.edit().putStringSet(VALUTES_SET_KEY, data).apply();
+    public void saveSelectedCurrencies(Set<String> data) {
+        preferences.edit().putStringSet(CURRENCIES_SET_KEY, data).apply();
     }
 
-    public Set<String> getSelectedValutes() {
-        return preferences.getStringSet(VALUTES_SET_KEY, null);
+    public Set<String> getSelectedCurrencies() {
+        return preferences.getStringSet(CURRENCIES_SET_KEY, null);
     }
 }

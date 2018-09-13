@@ -6,14 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.kilograpp.oromilconverter.R;
 import com.kilograpp.oromilconverter.adapters.MyRecyclerViewAdapter;
-import com.kilograpp.oromilconverter.data.network.entities.Valute;
+import com.kilograpp.oromilconverter.data.network.entities.Currency;
 import com.kilograpp.oromilconverter.presenter.ConverterFragmentPresenter;
 import com.kilograpp.oromilconverter.view.activity.MainActivity;
 
@@ -54,8 +53,8 @@ public class ConverterFragment extends Fragment implements ConverterMvpView {
     }
 
     @Override
-    public void updateList(List<Valute> valutes) {
-        ((MyRecyclerViewAdapter) recyclerView.getAdapter()).updateData(valutes);
+    public void updateList(List<Currency> currencies) {
+        ((MyRecyclerViewAdapter) recyclerView.getAdapter()).updateData(currencies);
     }
 
     @Override

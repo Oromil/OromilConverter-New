@@ -19,11 +19,11 @@ public class Response extends RealmObject {
     public String timestamp;
 
     @SerializedName("Valute")
-    public AllValutes allValutes;
+    public AllCurrency allCurrency;
 
-    private RealmList<Valute> valutes = new RealmList<>();
+    private RealmList<Currency> currencies = new RealmList<>();
 
-    public List<Valute> getValutes() {
-        return valutes;
+    public List<Currency> getCurrencies() {
+        return currencies;
     }
 }

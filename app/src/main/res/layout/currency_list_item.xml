@@ -18,13 +18,13 @@
             android:layout_marginRight="8dp">
 
         <TextView
-            android:id="@+id/tvValuteName"
+            android:id="@+id/tvCurrencyName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"/>
 
         <TextView
-            android:id="@+id/tvValuteQuantity"
+            android:id="@+id/tvCurrencyQuantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>

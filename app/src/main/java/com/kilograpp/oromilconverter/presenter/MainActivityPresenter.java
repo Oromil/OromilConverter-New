@@ -1,7 +1,7 @@
 package com.kilograpp.oromilconverter.presenter;
 
 import com.kilograpp.oromilconverter.data.DataManager;
-import com.kilograpp.oromilconverter.data.network.entities.Valute;
+import com.kilograpp.oromilconverter.data.network.entities.Currency;
 import com.kilograpp.oromilconverter.view.activity.MainMvpView;
 
 import java.util.ArrayList;
@@ -24,8 +24,8 @@ public class MainActivityPresenter extends BasePresenter<MainMvpView> {
     }
 
     public void loadData() {
-
-        dataManager.testRequest(new Subscriber<List<Valute>>() {
+        mMvpView.showProgress(true);
+        dataManager.testRequest(new Subscriber<List<Currency>>() {
             @Override
             public void onCompleted() {
                 mMvpView.showProgress(false);
@@ -38,44 +38,44 @@ public class MainActivityPresenter extends BasePresenter<MainMvpView> {
             }
 
             @Override
-            public void onNext(List<Valute> valutes) {
-                mMvpView.updateData(valutes);
+            public void onNext(List<Currency> currencies) {
+                mMvpView.updateData(currencies);
             }
         });
     }
 
-    public void saveSelectedValutes(Integer[] selectedIndexes) {
+    public void saveSelectedCurrencies(Integer[] selectedIndexes) {
 
         Set<String> data = new HashSet<>();
 
         for (Integer index : selectedIndexes) {
-            data.add(getValutesNames().get(index));
+            data.add(getCurrenciesNames().get(index));
         }
 
-        dataManager.saveSelectedValutes(data);
+        dataManager.saveSelectedCurrencies(data);
     }
 
-    private List<String> getSelectedValutes() {
-        if (dataManager.getSelectedValutes() != null)
-            return new ArrayList<>(dataManager.getSelectedValutes());
+    private List<String> getSelectedCurrencies() {
+        if (dataManager.getSelectedCurrencies() != null)
+            return new ArrayList<>(dataManager.getSelectedCurrencies());
         else return new ArrayList<>();
     }
 
-    public List<String> getValutesNames() {
+    public List<String> getCurrenciesNames() {
         List<String> names = new ArrayList<>();
 
-        for (Valute valute : dataManager.getDataFromDB()) {
-            names.add(valute.getName());
+        for (Currency currency : dataManager.getDataFromDB()) {
+            names.add(currency.getName());
         }
 
         return names;
     }
 
-    public Integer[] getSelectedValutesIndexes() {
-        List<String> items = getValutesNames();
+    public Integer[] getSelectedCurrenciesIndexes() {
+        List<String> items = getCurrenciesNames();
         List<Integer> selectedIndexes = new ArrayList<>();
 
-        for (String s : getSelectedValutes()) {
+        for (String s : getSelectedCurrencies()) {
             selectedIndexes.add(items.indexOf(s));
         }
 

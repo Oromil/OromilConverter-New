@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
 
-public class Valute extends RealmObject {
+public class Currency extends RealmObject {
 
     @SerializedName("ID")
     private String id;
@@ -42,7 +42,7 @@ public class Valute extends RealmObject {
     }
 
     public static Builder builder() {
-        return new Valute().new Builder();
+        return new Currency().new Builder();
     }
 
     public class Builder {
@@ -51,42 +51,42 @@ public class Valute extends RealmObject {
         }
 
         public Builder id(String id) {
-            Valute.this.id = id;
+            Currency.this.id = id;
             return this;
         }
 
         public Builder code(String code) {
-            Valute.this.code = code;
+            Currency.this.code = code;
             return this;
         }
 
         public Builder charCode(String charCode) {
-            Valute.this.charCode = charCode;
+            Currency.this.charCode = charCode;
             return this;
         }
 
         public Builder nom(Float nom) {
-            Valute.this.nom = nom;
+            Currency.this.nom = nom;
             return this;
         }
 
         public Builder name(String name) {
-            Valute.this.name = name;
+            Currency.this.name = name;
             return this;
         }
 
         public Builder value(Float value) {
-            Valute.this.value = value;
+            Currency.this.value = value;
             return this;
         }
 
         public Builder prev(Float prev) {
-            Valute.this.prev = prev;
+            Currency.this.prev = prev;
             return this;
         }
 
-        public Valute build() {
-            return Valute.this;
+        public Currency build() {
+            return Currency.this;
         }
     }
 }

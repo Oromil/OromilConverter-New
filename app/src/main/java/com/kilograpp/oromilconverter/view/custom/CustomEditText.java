@@ -41,11 +41,9 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
         if (focused){
-//            getText().clear();
             activateTextWatcher();}
         else {
             setEnabled(false);
-//            setFocusableInTouchMode(false);
             disableTextWatcher();
         }
     }
@@ -53,7 +51,6 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
     @Override
     public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
         setEnabled(true);
-//        setFocusableInTouchMode(true);
         return super.requestFocus(direction, previouslyFocusedRect);
     }
 }

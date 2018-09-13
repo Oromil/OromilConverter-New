@@ -15,7 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kilograpp.oromilconverter.R;
 import com.kilograpp.oromilconverter.adapters.ViewPagerAdapter;
-import com.kilograpp.oromilconverter.data.network.entities.Valute;
+import com.kilograpp.oromilconverter.data.network.entities.Currency;
 import com.kilograpp.oromilconverter.presenter.MainActivityPresenter;
 import com.kilograpp.oromilconverter.view.fragments.ConverterFragment;
 import com.kilograpp.oromilconverter.view.fragments.StatisticFragment;
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements MainMvpView {
     }
 
     @Override
-    public void updateData(List<Valute> data) {
+    public void updateData(List<Currency> data) {
         converterFragment.updateList(data);
     }
 
@@ -86,11 +86,10 @@ public class MainActivity extends AppCompatActivity implements MainMvpView {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         new MaterialDialog.Builder(this).title("title")
-                .items(presenter.getValutesNames())
-                .itemsCallbackMultiChoice(presenter.getSelectedValutesIndexes(), (dialog, which, text) -> true)
+                .items(presenter.getCurrenciesNames())
+                .itemsCallbackMultiChoice(presenter.getSelectedCurrenciesIndexes(), (dialog, which, text) -> true)
                 .onPositive((dialog, which) -> {
-                    presenter.saveSelectedValutes(dialog.getSelectedIndices());
-                    showProgress(true);
+                    presenter.saveSelectedCurrencies(dialog.getSelectedIndices());
                     presenter.loadData();
                     dialog.dismiss();
                 })

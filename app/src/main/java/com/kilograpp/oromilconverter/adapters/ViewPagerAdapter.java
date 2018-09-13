@@ -4,13 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.kilograpp.oromilconverter.view.fragments.BaseFragment;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.attr.fragment;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Created by Oromil on 19.07.2017.

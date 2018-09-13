@@ -4,73 +4,73 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
 
-public class AllValutes extends RealmObject{
+public class AllCurrency extends RealmObject{
     @SerializedName("AUD")
-    public Valute AUD;
+    public Currency AUD;
     @SerializedName("AZN")
-    public Valute AZN;
+    public Currency AZN;
     @SerializedName("GBP")
-    public Valute gbp;
+    public Currency gbp;
     @SerializedName("AMD")
-    public Valute amd;
+    public Currency amd;
     @SerializedName("BYN")
-    public Valute byn;
+    public Currency byn;
     @SerializedName("BGN")
-    public Valute bgn;
+    public Currency bgn;
     @SerializedName("BRL")
-    public Valute brl;
+    public Currency brl;
     @SerializedName("HUF")
-    public Valute huf;
+    public Currency huf;
     @SerializedName("HKD")
-    public Valute hkd;
+    public Currency hkd;
     @SerializedName("DKK")
-    public Valute dkk;
+    public Currency dkk;
     @SerializedName("USD")
-    public Valute usd;
+    public Currency usd;
     @SerializedName("EUR")
-    public Valute eur;
+    public Currency eur;
     @SerializedName("INR")
-    public Valute inr;
+    public Currency inr;
     @SerializedName("KZT")
-    public Valute kzt;
+    public Currency kzt;
     @SerializedName("CAD")
-    public Valute cad;
+    public Currency cad;
     @SerializedName("KGS")
-    public Valute kgs;
+    public Currency kgs;
     @SerializedName("CNY")
-    public Valute cny;
+    public Currency cny;
     @SerializedName("MDL")
-    public Valute mdl;
+    public Currency mdl;
     @SerializedName("NOK")
-    public Valute nok;
+    public Currency nok;
     @SerializedName("PLN")
-    public Valute pln;
+    public Currency pln;
     @SerializedName("RON")
-    public Valute ron;
+    public Currency ron;
     @SerializedName("XDR")
-    public Valute xdr;
+    public Currency xdr;
     @SerializedName("SGD")
-    public Valute sgd;
+    public Currency sgd;
     @SerializedName("TJS")
-    public Valute tjs;
+    public Currency tjs;
     @SerializedName("TRY")
-    public Valute ttry;
+    public Currency ttry;
     @SerializedName("TMT")
-    public Valute tmt;
+    public Currency tmt;
     @SerializedName("UZS")
-    public Valute uzs;
+    public Currency uzs;
     @SerializedName("UAH")
-    public Valute uah;
+    public Currency uah;
     @SerializedName("CZK")
-    public Valute czk;
+    public Currency czk;
     @SerializedName("SEK")
-    public Valute sek;
+    public Currency sek;
     @SerializedName("CHF")
-    public Valute chf;
+    public Currency chf;
     @SerializedName("ZAR")
-    public Valute zar;
+    public Currency zar;
     @SerializedName("KRW")
-    public Valute krw;
+    public Currency krw;
     @SerializedName("JPY")
-    public Valute jpy;
+    public Currency jpy;
 }

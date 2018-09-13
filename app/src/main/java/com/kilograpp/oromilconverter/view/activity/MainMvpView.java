@@ -1,6 +1,6 @@
 package com.kilograpp.oromilconverter.view.activity;
 
-import com.kilograpp.oromilconverter.data.network.entities.Valute;
+import com.kilograpp.oromilconverter.data.network.entities.Currency;
 import com.kilograpp.oromilconverter.view.MvpView;
 
 import java.util.List;
@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface MainMvpView extends MvpView {
     void showProgress(boolean show);
-    void updateData(List<Valute>data);
+    void updateData(List<Currency>data);
 }

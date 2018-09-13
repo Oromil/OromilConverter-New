@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kilograpp.oromilconverter.R;
-import com.kilograpp.oromilconverter.data.network.entities.Valute;
+import com.kilograpp.oromilconverter.data.network.entities.Currency;
 import com.kilograpp.oromilconverter.util.CalculateUtil;
 import com.kilograpp.oromilconverter.view.custom.CustomEditText;
 import com.kilograpp.oromilconverter.view.custom.CustomTextWatcher;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
 
-    private ArrayList<Valute> mValutesList;
+    private ArrayList<Currency> currencyList;
     private View.OnClickListener onClickListener;
 
     // TODO: 12.09.2018 костыль
@@ -53,7 +53,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     public MyRecyclerViewAdapter(View.OnClickListener listener) {
         onClickListener = listener;
-        mValutesList = new ArrayList<>();
+        currencyList = new ArrayList<>();
         activeItem = -1;
     }
 
@@ -69,26 +69,26 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Valute valute = mValutesList.get(position);
-        holder.valuteName.setText(valute.getName());
+        Currency currency = currencyList.get(position);
+        holder.currencyName.setText(currency.getName());
 
         if (activeItem == position) {
-            if (mValutesList.get(position).getQuantity() == 0f)
-                holder.valuteQuantity.getText().clear();
+            if (currencyList.get(position).getQuantity() == 0f)
+                holder.currencyQuantity.getText().clear();
             else
-                holder.valuteQuantity.setText(String.valueOf(valute.getQuantity()));
+                holder.currencyQuantity.setText(String.valueOf(currency.getQuantity()));
 
-            holder.valuteQuantity.requestFocus();
+            holder.currencyQuantity.requestFocus();
         } else {
-            holder.valuteQuantity.setText(String.valueOf(valute.getQuantity()));
+            holder.currencyQuantity.setText(String.valueOf(currency.getQuantity()));
         }
 
         holder.itemView.setOnClickListener(v -> {
             if (activeItem != position) {
                 notifyItemChanged(activeItem);
                 activeItem = position;
-                holder.valuteQuantity.getText().clear();
-                holder.valuteQuantity.requestFocus();
+                holder.currencyQuantity.getText().clear();
+                holder.currencyQuantity.requestFocus();
             }
             onClickListener.onClick(v);
         });
@@ -97,26 +97,26 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public int getItemCount() {
-        return mValutesList.size();
+        return currencyList.size();
     }
 
 
-    public void updateData(List<Valute> valutes) {
+    public void updateData(List<Currency> currencies) {
         if (parent != null)
             parent.requestFocus();
-        mValutesList.clear();
-        mValutesList.addAll(valutes);
+        currencyList.clear();
+        currencyList.addAll(currencies);
         activeItem = -1;
         notifyDataSetChanged();
     }
 
     private void changeItemsQuantity(String quantity) {
-        for (Valute valute : mValutesList) {
-            if (mValutesList.indexOf(valute) == activeItem)
-                valute.setQuantity(Float.valueOf(quantity));
+        for (Currency currency : currencyList) {
+            if (currencyList.indexOf(currency) == activeItem)
+                currency.setQuantity(Float.valueOf(quantity));
             else {
-                CalculateUtil.calculate(quantity, mValutesList.get(activeItem), valute);
-                notifyItemChanged(mValutesList.indexOf(valute));
+                CalculateUtil.calculate(quantity, currencyList.get(activeItem), currency);
+                notifyItemChanged(currencyList.indexOf(currency));
             }
         }
     }
@@ -124,14 +124,14 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView valuteName;
-        CustomEditText valuteQuantity;
+        TextView currencyName;
+        CustomEditText currencyQuantity;
 
         MyViewHolder(View itemView) {
             super(itemView);
-            valuteName = itemView.findViewById(R.id.tvValuteName);
-            valuteQuantity = itemView.findViewById(R.id.tvQuantity);
-            valuteQuantity.addTextChangedListener(mWatcher);
+            currencyName = itemView.findViewById(R.id.tvCurrencyName);
+            currencyQuantity = itemView.findViewById(R.id.tvQuantity);
+            currencyQuantity.addTextChangedListener(mWatcher);
         }
     }
 }
